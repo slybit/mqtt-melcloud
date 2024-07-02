@@ -1,4 +1,5 @@
 const { EventEmitter } = require('events');
+const { logger } = require('../standardlogger.js');
 const axios = require('axios').default;
 
 const { Device } = require('./device');
@@ -31,7 +32,7 @@ class Cloud extends EventEmitter {
             return response;
         } catch (e) {
             if (e.response && e.response.status === 401) {
-                console.log('X-MitsContextKey expired. Logging in.');
+                logger.warn('[melcloud] X-MitsContextKey expired. Logging in.');
                 this.emit('disconnected');
                 await this.login();
                 await this.fetch();
@@ -52,7 +53,7 @@ class Cloud extends EventEmitter {
             return response;
         } catch (e) {
             if (e.response && e.response.status === 401) {
-                console.log('X-MitsContextKey expired. Logging in.');
+                logger.warn('[melcloud] X-MitsContextKey expired. Logging in.');
                 this.emit('disconnected');
                 await this.login();
                 await this.fetch();
@@ -67,7 +68,7 @@ class Cloud extends EventEmitter {
         let success = false;
         while (!success) {
             try {
-                console.log("Connecting to Melcloud. Attempt " + attempts);
+                //console.log("Connecting to Melcloud. Attempt " + attempts);
                 this.loginDetails = await this._login();
                 this.emit('login');
                 success = true;
@@ -108,7 +109,7 @@ class Cloud extends EventEmitter {
                 }
                 const data = response.data.LoginData;
                 if (data === null) {
-                    console.error('Failed to login. Wrong credentials. Terminating.');
+                    logger.error('[melcloud] Failed to login. Wrong credentials. Terminating.');
                     process.exit(1);
                 }
                 return data;
@@ -150,8 +151,7 @@ class Cloud extends EventEmitter {
                 devices.forEach(({ device, location }) => this.attach(device, location));
             })
             .catch((e) => {
-                console.log(e);
-                console.log(e.response.status);
+                logger.error('[melcloud] Error sending API request.')
                 this.emit('error', e)
             });
     }

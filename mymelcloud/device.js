@@ -116,7 +116,6 @@ class Device extends EventEmitter {
 
     set(update) {
         const change = this.prepareUpdate(update);
-        console.log(change);
 
         const same = Object.keys(change)
             .every((k) => change[k] === undefined || this.state[k] === change[k]);
@@ -134,7 +133,6 @@ class Device extends EventEmitter {
             EffectiveFlags: 287,
             ...change,
         });
-        console.log(data);
 
         return this.cloud.postRequest(url, data)
             .then((state) => this.update(state.data))

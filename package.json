@@ -1,34 +1,25 @@
 {
-	"name": "mqtt-melcloud",
-	"version": "0.1.2",
-	"description": "MQTT integration for Mitsubishi Melcloud devices",
-	"author": "zephyrus",
+	"name": "melcloud2mqtt",
+	"version": "0.0.1",
+	"description": "MQTT integration with Mitsubishi Melcloud",
+	"author": "slybit",
 	"license": "MIT",
-	"homepage": "https://github.com/zephyrus/mqtt-melcloud",
-	"bugs": {
-		"url": "https://github.com/zephyrus/mqtt-melcloud/issues"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/zephyrus/mqtt-melcloud.git"
-	},
+	"homepage": "",
 	"keywords": [
 		"mqtt",
 		"mitsubishi",
 		"melcloud"
 	],
 	"scripts": {
-		"lint": "eslint .",
-		"start": "node index.js"
+		"start": "node melcloud2mqtt.js"
 	},
 	"dependencies": {
 		"axios": "^1.6.8",
+		"js-yaml": "^4.1.0",
 		"mqtt": "^5.5.5",
-		"request": "^2.88.2"
+		"winston": "^3.13.0",
+		"winston-elasticsearch": "^0.19.0"
 	},
 	"devDependencies": {
-		"eslint": "7.31.0",
-		"eslint-config-airbnb-base": "14.2.0",
-		"eslint-plugin-import": "2.23.4"
 	}
 }
