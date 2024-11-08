@@ -21,7 +21,7 @@ const topics = {
 // Melcloud device (IDs) that we are subscribed to on the mqtt bus (that we listen to for commands)
 const subsciptions = {};
 
-const mqttClient = mqtt.connect(config.mqtt.url, { ...config.mqtt.options, 
+const mqttClient = mqtt.connect(config.mqtt.url, { ...config.mqtt.options,
 	will: {
 		topic: topics.state(),
 		payload: JSON.stringify({ online: false }),
@@ -106,7 +106,7 @@ cloud.on('device', (device) => {
 // Called when a device wants to push a state update to MQTT
 cloud.on('state', (device, state) => {
 	logger.debug(`[melcloud] received state for ${topics.update(device.id, device.building)}`);
-	mqttClient.publish(topics.status(device.id, device.building), JSON.stringify(state), {
+	mqttClient.publish(topics.status(device.id, device.building), JSON.stringify({...state, ...device.info}), {
 		retain: false,
 	});
 });
