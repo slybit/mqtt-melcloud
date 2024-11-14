@@ -70,25 +70,8 @@ The value you provide to set the fan speed must be an integer between 1 and that
 ```
 
 
+## Docker run command
 
-## Docker Compose
-
-```yml
-version: '3'
-
-services:
-
-  melcloud:
-    image: 2mqtt/melcloud:0.0.8
-
-    restart: always
-
-    environment:
-      - MQTT_ID=melcloud
-      - MQTT_PATH=melcloud
-      - MQTT_HOST=mqtt://<ip address of mqtt broker>
-      - MQTT_USERNAME=<mqtt username>
-      - MQTT_PASSWORD=<mqtt password>
-      - MELCLOUD_USERNAME=<melcloud username>
-      - MELCLOUD_PASSWORD=<melcloud password>
+```bash
+docker run -d --rm -v /path/to/config.yaml:/usr/src/app/config/config.yaml slybit/melcloud2mqtt:1.0
 ```
