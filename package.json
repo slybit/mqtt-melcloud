@@ -1,6 +1,6 @@
 {
 	"name": "melcloud2mqtt",
-	"version": "0.0.1",
+	"version": "1.0.0",
 	"description": "MQTT integration with Mitsubishi Melcloud",
 	"author": "slybit",
 	"license": "MIT",

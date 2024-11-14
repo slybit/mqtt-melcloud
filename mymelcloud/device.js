@@ -8,21 +8,6 @@ const operationMode = {
     auto: 8,
 };
 
-const parseVane = (swing, values = 5) => (v) => {
-    if (v === 0) return 'auto';
-
-    if (v === swing) return 'swing';
-
-    // if we have 5 positions, then
-    // 1 = 0%
-    // 2 = 25%
-    // 3 = 50%
-    // 4 = 75%
-    // 5 = 100%
-    if (v >= 1 && v <= values) return (v - 1) / (values - 1);
-
-    return undefined;
-};
 
 const prepareVane = (swing, values = 5) => (v) => {
     if (v === 'auto') return 0;
@@ -34,9 +19,8 @@ const prepareVane = (swing, values = 5) => (v) => {
     return undefined;
 };
 
-const parseVertical = parseVane(7);
+
 const prepareVertical = prepareVane(7);
-const parseHorizontal = parseVane(12);
 const prepareHorizontal = prepareVane(12);
 
 

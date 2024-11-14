@@ -7,7 +7,6 @@ const config = require('./config.js').parse();
 const topics = {
 	state: () => `${config.mqtt.topicPrefix}/state`,
 	device: () => `${config.mqtt.topicPrefix}/device`,
-	update: (id) => `${config.mqtt.topicPrefix}/${id}`,
 	status: (id) => `${config.mqtt.topicPrefix}/status/${id}`,
 	info: (id) => `${config.mqtt.topicPrefix}/info/${id}`,
 	set: (id) => `${config.mqtt.topicPrefix}/set/${id}`,
@@ -91,7 +90,7 @@ cloud.on('device', (device) => {
 	mqttClient.subscribe(topic);
 	subsciptions[topic] = device;
 
-	logger.info(`[melcloud] registed device at ${topics.update(device.id, device.building)}`);
+	logger.info(`[melcloud] registed device at ${topics.status(device.id, device.building)}`);
 
 	mqttClient.publish(topics.device(), JSON.stringify(device.info), {
 		retain: false,
@@ -105,7 +104,7 @@ cloud.on('device', (device) => {
 
 // Called when a device wants to push a state update to MQTT
 cloud.on('state', (device, state) => {
-	logger.debug(`[melcloud] received state for ${topics.update(device.id, device.building)}`);
+	logger.debug(`[melcloud] received state for ${topics.status(device.id, device.building)}`);
 	mqttClient.publish(topics.status(device.id, device.building), JSON.stringify({...state, ...device.info}), {
 		retain: false,
 	});
